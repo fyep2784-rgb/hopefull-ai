@@ -6,10 +6,6 @@
 <title>HOPEFULL AI</title>
 
 <style>
-* {
-    box-sizing: border-box;
-}
-
 body {
     margin: 0;
     background: #101820;
@@ -19,14 +15,13 @@ body {
 
 header {
     text-align: center;
-    padding: 30px 15px;
+    padding: 25px;
     background: #172631;
     border-bottom: 2px solid #00d68f;
 }
 
 h1 {
     color: #00d68f;
-    font-size: 32px;
 }
 
 #chat {
@@ -36,16 +31,15 @@ h1 {
 }
 
 .message {
-    padding: 14px;
-    margin: 12px 0;
+    padding: 12px;
+    margin: 10px 0;
     border-radius: 10px;
-    max-width: 85%;
     overflow-wrap: anywhere;
 }
 
 .user {
     background: #087f5b;
-    margin-left: auto;
+    text-align: right;
 }
 
 .bot {
@@ -55,7 +49,7 @@ h1 {
 .input-area {
     display: flex;
     gap: 8px;
-    padding: 15px;
+    padding: 12px;
     background: #172631;
 }
 
@@ -65,11 +59,10 @@ input {
     padding: 14px;
     border: none;
     border-radius: 8px;
-    font-size: 16px;
 }
 
 button {
-    padding: 12px 20px;
+    padding: 12px 18px;
     background: #00d68f;
     border: none;
     border-radius: 8px;
@@ -92,21 +85,49 @@ button {
 </div>
 
 <div class="input-area">
-    <input id="userInput" placeholder="Write your message...">
-    <button onclick="sendMessage()">Send</button>
+    <input id="userInput" type="text"
+           placeholder="Write your message...">
+    <button id="sendButton" type="button">Send</button>
 </div>
 
 <script>
-function sendMessage() {
+document.addEventListener("DOMContentLoaded", function () {
+
     const input = document.getElementById("userInput");
     const chat = document.getElementById("chat");
-    const message = input.value.trim();
+    const button = document.getElementById("sendButton");
 
-    if (!message) return;
+    function sendMessage() {
+        const message = input.value.trim();
 
-    const user = document.createElement("div");
-    user.className = "message user";
-    user.textContent = message;
-    chat.appendChild(user);
+        if (message === "") return;
 
-    const bot = document.createElement("div
+        const user = document.createElement("div");
+        user.className = "message user";
+        user.textContent = message;
+        chat.appendChild(user);
+
+        const bot = document.createElement("div");
+        bot.className = "message bot";
+        bot.textContent =
+            "Welcome to HOPEFULL AI! I received your message: " + message;
+
+        chat.appendChild(bot);
+
+        input.value = "";
+        chat.scrollTop = chat.scrollHeight;
+    }
+
+    button.addEventListener("click", sendMessage);
+
+    input.addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            sendMessage();
+        }
+    });
+
+});
+</script>
+
+</body>
+</html>
