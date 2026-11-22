@@ -19,13 +19,14 @@ body {
 
 header {
     text-align: center;
-    padding: 25px;
+    padding: 30px 15px;
     background: #172631;
     border-bottom: 2px solid #00d68f;
 }
 
-header h1 {
+h1 {
     color: #00d68f;
+    font-size: 32px;
 }
 
 #chat {
@@ -35,12 +36,77 @@ header h1 {
 }
 
 .message {
-    padding: 12px;
-    margin: 10px 0;
+    padding: 14px;
+    margin: 12px 0;
     border-radius: 10px;
+    max-width: 85%;
     overflow-wrap: anywhere;
 }
 
 .user {
     background: #087f5b;
-    text
+    margin-left: auto;
+}
+
+.bot {
+    background: #263746;
+}
+
+.input-area {
+    display: flex;
+    gap: 8px;
+    padding: 15px;
+    background: #172631;
+}
+
+input {
+    flex: 1;
+    min-width: 0;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+button {
+    padding: 12px 20px;
+    background: #00d68f;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>HOPEFULL AI</h1>
+    <p>Dream Big. Build the Future.</p>
+</header>
+
+<div id="chat">
+    <div class="message bot">
+        Welcome to HOPEFULL AI! How can I help you?
+    </div>
+</div>
+
+<div class="input-area">
+    <input id="userInput" placeholder="Write your message...">
+    <button onclick="sendMessage()">Send</button>
+</div>
+
+<script>
+function sendMessage() {
+    const input = document.getElementById("userInput");
+    const chat = document.getElementById("chat");
+    const message = input.value.trim();
+
+    if (!message) return;
+
+    const user = document.createElement("div");
+    user.className = "message user";
+    user.textContent = message;
+    chat.appendChild(user);
+
+    const bot = document.createElement("div
