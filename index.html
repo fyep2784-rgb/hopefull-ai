@@ -3,131 +3,357 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HOPEFULL AI</title>
+<meta name="theme-color" content="#101426">
+<title>HOPEFULL AI | HOPEFULL TECHNOLOGIES</title>
 
 <style>
+:root {
+  --bg: #0b1020;
+  --panel: #121a30;
+  --panel2: #192440;
+  --blue: #4285ff;
+  --purple: #8958ff;
+  --text: #f4f6ff;
+  --muted: #9ba8c7;
+}
+* { box-sizing: border-box; }
 body {
-    margin: 0;
-    background: #101820;
-    color: white;
-    font-family: Arial, sans-serif;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Arial, sans-serif;
+  height: 100vh;
+  display: flex;
 }
-
-header {
-    text-align: center;
-    padding: 25px;
-    background: #172631;
-    border-bottom: 2px solid #00d68f;
+.sidebar {
+  width: 260px;
+  background: #0f172b;
+  border-right: 1px solid #26314d;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
-
-h1 {
-    color: #00d68f;
+.logo {
+  font-size: 23px;
+  font-weight: bold;
+  background: linear-gradient(90deg,var(--blue),var(--purple));
+  color: transparent;
+  background-clip: text;
 }
-
-#chat {
-    height: 65vh;
-    overflow-y: auto;
-    padding: 15px;
-}
-
-.message {
-    padding: 12px;
-    margin: 10px 0;
-    border-radius: 10px;
-    overflow-wrap: anywhere;
-}
-
-.user {
-    background: #087f5b;
-    text-align: right;
-}
-
-.bot {
-    background: #263746;
-}
-
-.input-area {
-    display: flex;
-    gap: 8px;
-    padding: 12px;
-    background: #172631;
-}
-
-input {
-    flex: 1;
-    min-width: 0;
-    padding: 14px;
-    border: none;
-    border-radius: 8px;
-}
-
+.tagline { color: var(--muted); font-size: 12px; }
 button {
-    padding: 12px 18px;
-    background: #00d68f;
-    border: none;
-    border-radius: 8px;
-    font-weight: bold;
+  border: 0;
+  cursor: pointer;
+  border-radius: 10px;
+  padding: 12px;
+  color: white;
+  background: linear-gradient(100deg,var(--blue),var(--purple));
+  font-weight: bold;
+}
+button:hover { opacity: .85; }
+.secondary {
+  background: var(--panel2);
+  border: 1px solid #303e60;
+}
+#history {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+}
+.history-item {
+  background: var(--panel2);
+  padding: 11px;
+  border-radius: 9px;
+  font-size: 13px;
+  cursor: pointer;
+  overflow: hidden;
+}
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+header {
+  padding: 17px 22px;
+  border-bottom: 1px solid #26314d;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+header h2 { margin: 0; font-size: 19px; }
+#messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+}
+.welcome {
+  margin: auto;
+  text-align: center;
+  max-width: 480px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+.welcome h1 {
+  color: white;
+  font-size: 34px;
+}
+.message {
+  max-width: 78%;
+  padding: 14px 17px;
+  border-radius: 15px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.user {
+  align-self: flex-end;
+  background: linear-gradient(110deg,#285ec8,#6842be);
+}
+.bot {
+  align-self: flex-start;
+  background: var(--panel2);
+  border: 1px solid #303e60;
+}
+.copy {
+  background: transparent;
+  color: var(--muted);
+  padding: 5px;
+  font-size: 12px;
+}
+.composer {
+  padding: 17px;
+  border-top: 1px solid #26314d;
+}
+.input-box {
+  max-width: 900px;
+  margin: auto;
+  display: flex;
+  gap: 10px;
+  background: var(--panel);
+  border: 1px solid #303e60;
+  border-radius: 14px;
+  padding: 9px;
+}
+textarea {
+  flex: 1;
+  resize: none;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: white;
+  font-size: 16px;
+  padding: 10px;
+  height: 45px;
+}
+.footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 11px;
+  padding-top: 10px;
+}
+.actions {
+  display: flex;
+  gap: 7px;
+}
+select {
+  background: var(--panel2);
+  color: white;
+  border: 1px solid #303e60;
+  border-radius: 8px;
+  padding: 8px;
+}
+@media(max-width:650px) {
+  .sidebar { width: 65px; padding: 10px 6px; }
+  .sidebar .logo { font-size: 11px; text-align: center; }
+  .sidebar .tagline, .sidebar .side-label,
+  .history-item { display: none; }
+  .sidebar button { font-size: 10px; padding: 10px 3px; }
+  #messages { padding: 15px; }
+  .message { max-width: 92%; }
+  header { padding: 13px; }
+  header h2 { font-size: 16px; }
+}
+body[dir="rtl"] .sidebar {
+  border-right: 0;
+  border-left: 1px solid #26314d;
 }
 </style>
 </head>
 
 <body>
+<aside class="sidebar">
+  <div class="logo">HOPEFULL AI</div>
+  <div class="tagline">Dream Big. Build the Future.</div>
+  <button onclick="newChat()">＋ <span class="side-label">New Chat</span></button>
+  <button class="secondary" onclick="clearChat()">⌫ <span class="side-label">Clear Chat</span></button>
+  <div class="side-label">Recent conversations</div>
+  <div id="history"></div>
+  <div class="tagline">HOPEFULL TECHNOLOGIES</div>
+</aside>
 
-<header>
-    <h1>HOPEFULL AI</h1>
-    <p>Dream Big. Build the Future.</p>
-</header>
-
-<div id="chat">
-    <div class="message bot">
-        Welcome to HOPEFULL AI! How can I help you?
+<main class="main">
+  <header>
+    <h2>HOPEFULL AI</h2>
+    <div class="actions">
+      <select id="language" onchange="changeLanguage()">
+        <option value="en">English</option>
+        <option value="ar">العربية</option>
+      </select>
     </div>
-</div>
+  </header>
 
-<div class="input-area">
-    <input id="userInput" type="text"
-           placeholder="Write your message...">
-    <button id="sendButton" type="button">Send</button>
-</div>
+  <section id="messages">
+    <div class="welcome" id="welcome">
+      <h1>Dream Big. Build the Future.</h1>
+      Welcome to HOPEFULL AI.<br>
+      Your ideas deserve a brighter future.
+    </div>
+  </section>
+
+  <div class="composer">
+    <div class="input-box">
+      <textarea id="input" placeholder="Message HOPEFULL AI..."></textarea>
+      <button onclick="sendMessage()">Send ➤</button>
+    </div>
+    <div class="footer">
+      HOPEFULL AI can make mistakes. Always verify important information.
+    </div>
+  </div>
+</main>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
+const messages = document.getElementById("messages");
+const input = document.getElementById("input");
+const historyBox = document.getElementById("history");
 
-    const input = document.getElementById("userInput");
-    const chat = document.getElementById("chat");
-    const button = document.getElementById("sendButton");
+let chats = JSON.parse(localStorage.getItem("hopefull_chats") || "[]");
+let currentChat = Date.now();
 
-    function sendMessage() {
-        const message = input.value.trim();
+function saveChats() {
+  localStorage.setItem("hopefull_chats", JSON.stringify(chats));
+  renderHistory();
+}
 
-        if (message === "") return;
+function addMessage(text, type) {
+  const welcome = document.getElementById("welcome");
+  if (welcome) welcome.remove();
 
-        const user = document.createElement("div");
-        user.className = "message user";
-        user.textContent = message;
-        chat.appendChild(user);
+  const box = document.createElement("div");
+  box.className = "message " + type;
 
-        const bot = document.createElement("div");
-        bot.className = "message bot";
-        bot.textContent =
-            "Welcome to HOPEFULL AI! I received your message: " + message;
+  const content = document.createElement("div");
+  content.textContent = text;
+  box.appendChild(content);
 
-        chat.appendChild(bot);
+  if (type === "bot") {
+    const copy = document.createElement("button");
+    copy.className = "copy";
+    copy.textContent = "Copy";
+    copy.onclick = () => {
+      navigator.clipboard.writeText(text);
+      copy.textContent = "Copied!";
+    };
+    box.appendChild(copy);
+  }
 
-        input.value = "";
-        chat.scrollTop = chat.scrollHeight;
-    }
+  messages.appendChild(box);
+  messages.scrollTop = messages.scrollHeight;
+}
 
-    button.addEventListener("click", sendMessage);
+function sendMessage() {
+  const text = input.value.trim();
+  if (!text) return;
 
-    input.addEventListener("keydown", function(event) {
-        if (event.key === "Enter") {
-            sendMessage();
-        }
-    });
+  addMessage(text, "user");
+  input.value = "";
 
+  let chat = chats.find(c => c.id === currentChat);
+  if (!chat) {
+    chat = { id: currentChat, title: text.slice(0, 28), messages: [] };
+    chats.unshift(chat);
+  }
+
+  chat.messages.push({ text, type: "user" });
+
+  const lang = document.getElementById("language").value;
+  const reply = lang === "ar"
+    ? "مرحبًا بك في HOPEFULL AI! استلمت رسالتك: " + text + "\nهذه نسخة تجريبية، والذكاء الاصطناعي الحقيقي سيُضاف لاحقًا."
+    : "Welcome to HOPEFULL AI! I received your message: " + text + "\nThis is a demo version. Real AI will be connected later.";
+
+  setTimeout(() => {
+    addMessage(reply, "bot");
+    chat.messages.push({ text: reply, type: "bot" });
+    saveChats();
+  }, 500);
+
+  saveChats();
+}
+
+function clearChat() {
+  messages.innerHTML = "";
+  const chat = chats.find(c => c.id === currentChat);
+  if (chat) {
+    chats = chats.filter(c => c.id !== currentChat);
+    saveChats();
+  }
+  showWelcome();
+}
+
+function newChat() {
+  currentChat = Date.now();
+  messages.innerHTML = "";
+  showWelcome();
+}
+
+function showWelcome() {
+  const div = document.createElement("div");
+  div.className = "welcome";
+  div.id = "welcome";
+  div.innerHTML = "<h1>Dream Big. Build the Future.</h1>Welcome to HOPEFULL AI.";
+  messages.appendChild(div);
+}
+
+function renderHistory() {
+  historyBox.innerHTML = "";
+  chats.forEach(chat => {
+    const item = document.createElement("div");
+    item.className = "history-item";
+    item.textContent = chat.title;
+    item.onclick = () => openChat(chat.id);
+    historyBox.appendChild(item);
+  });
+}
+
+function openChat(id) {
+  currentChat = id;
+  messages.innerHTML = "";
+  const chat = chats.find(c => c.id === id);
+  if (!chat) return showWelcome();
+
+  chat.messages.forEach(m => addMessage(m.text, m.type));
+}
+
+function changeLanguage() {
+  const lang = document.getElementById("language").value;
+  document.body.dir = lang === "ar" ? "rtl" : "ltr";
+  input.placeholder = lang === "ar" ? "اكتب رسالتك هنا..." : "Message HOPEFULL AI...";
+}
+
+input.addEventListener("keydown", function(e) {
+  if (e.key === "Enter" && !e.shiftKey) {
+    e.preventDefault();
+    sendMessage();
+  }
 });
-</script>
 
+renderHistory();
+</script>
 </body>
 </html>
